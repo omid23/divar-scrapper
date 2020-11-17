@@ -85,11 +85,12 @@ def all_posts(city, category='real-estate', divar_scrapping_pages=10):
         return 0
 
 
-def single_post(token, authorization_code='NOT ASSIGNED'):
+def single_post_detail(token, authorization_code='NOT ASSIGNED'):
     """
     :param authorization_code:
     :param token:
     """
+    additional_data = dict()
     url = "https://api.divar.ir/v5/posts/" + token
     payload = {}
     headers = {
@@ -109,8 +110,7 @@ def single_post(token, authorization_code='NOT ASSIGNED'):
     }
     response = requests.request("GET", url, headers=headers, data=payload)
     detail = json.loads(response.text.encode('utf-8').decode())
-    property_type = detail["widgets"]["breadcrumb"]["categories"][0]['title']  # آپارتمان
-    trading_type = detail["widgets"]["breadcrumb"]["categories"][1]['title']  # اجاره مسکونی
+    additional_data['categories'] = detail["widgets"]["breadcrumb"]["categories"]
     post_url = detail["data"]["share"]["web_url"]
     description = detail["data"]["share"]["description"]
     features = detail["widgets"]["list_data"]
@@ -128,7 +128,6 @@ def single_post(token, authorization_code='NOT ASSIGNED'):
     address = detail["widgets"]["header"]["place"]
     url = post_url
     description = description
-    additional_data = dict()
     for feature in features:
         feature_key = feature["title"]
         if feature["format"] == "string" and feature_key != "دسته‌بندی":
@@ -154,8 +153,6 @@ def single_post(token, authorization_code='NOT ASSIGNED'):
         'token': token,
         'image': image,
         'phone': phone,
-        'property_type': property_type,
-        'trading_type': trading_type,
         'url': url,
         'additional_data': additional_data,
     }
