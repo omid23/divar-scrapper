@@ -1,8 +1,12 @@
 # Default ignored files
+.idea
+../.idea
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
 /../../../../../../:\Users\omidb\PycharmProjects\divar_scrapper\.idea/dataSources/
+/../../../../../../:\Users\omidb\PycharmProjects\divar_scrapper\.idea/
+/../../../../../../:\Users\omidb\PycharmProjects\divar_scrapper\.idea/*
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
